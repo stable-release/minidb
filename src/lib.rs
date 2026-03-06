@@ -1,14 +1,13 @@
-pub fn add(left: u64, right: u64) -> u64 {
-    left + right
-}
+use clap::Parser;
 
-#[cfg(test)]
-mod tests {
-    use super::*;
+pub mod database;
 
-    #[test]
-    fn it_works() {
-        let result = add(2, 2);
-        assert_eq!(result, 4);
-    }
+#[derive(Parser, Debug)]
+#[command(name = "minidb", version, about = "MiniDB CLI")]
+pub struct StartupCli {
+    #[arg(name = "DB_NAME")]
+    pub db_name: Option<String>,
+
+    #[arg(short = 'n', long)]
+    pub new: bool,
 }
