@@ -1,5 +1,6 @@
 use clap::Parser;
-use minidb::{StartupCli, database::storage::Database};
+
+use minidb::{database::database::Database, parser::startup::{self, StartupCli}};
 
 pub fn main() -> anyhow::Result<()> {
     let startup = StartupCli::parse();
@@ -12,6 +13,8 @@ pub fn main() -> anyhow::Result<()> {
         // Retrieve db
         Database::open(&db_path)?;
     };
+
+
 
     Ok(())
 }
