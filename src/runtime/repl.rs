@@ -2,13 +2,15 @@ use std::io::{Write, stdin, stdout};
 
 use anyhow::Result;
 
-pub fn REPL () -> Result<()> {
+use crate::{database::database::Database, runtime::handler::handle_dot_commands};
+
+pub fn repl(mut db: &mut Database) -> Result<()> {
     let stdin = stdin();
-    let mut stdout = stdout();    
+    let mut stdout = stdout();
 
     loop {
         stdout.flush()?;
-        
+
         let mut line = String::new();
         if stdin.read_line(&mut line)? == 0 {
             break;

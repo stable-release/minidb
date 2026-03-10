@@ -1,6 +1,6 @@
 use clap::Parser;
 
-use minidb::{database::database::Database, parser::startup::{self, StartupCli}};
+use minidb::{database::database::Database, parser::startup::{self, StartupCli}, runtime::repl::repl};
 
 pub fn main() -> anyhow::Result<()> {
     let startup = StartupCli::parse();
@@ -8,12 +8,13 @@ pub fn main() -> anyhow::Result<()> {
     let db_path: String = startup.db_name.unwrap_or("default".to_owned());
     let mut db = if startup.new {
         // Create new
-        Database::create(&db_path)?;
+        Database::create(&db_path)?
     } else {
         // Retrieve db
-        Database::open(&db_path)?;
+        Database::open(&db_path)?
     };
 
+    repl(&mut db);
 
 
     Ok(())
